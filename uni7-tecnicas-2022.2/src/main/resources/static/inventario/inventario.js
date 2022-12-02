@@ -1,4 +1,4 @@
-async function carregarCommits() {
+async function carregarItens() {
     let htmlItemGroup;
     await fetch(itemGroup)
         .then((response) => response.text())
@@ -20,30 +20,30 @@ async function carregarCommits() {
 
                 for(const [key, value] of Object.entries(data))
                 {
-                    let timeline = document.getElementById('timeline-content-commits');
+                    let timeline = document.getElementById('timeline-content-itens');
                     let parser = new DOMParser();
 
-                    const docCommitGroup = parser.parseFromString(htmlItemGroup, "text/html");
+                    const docItemGroup = parser.parseFromString(htmlItemGroup, "text/html");
 
-                    const commitItemDom = docCommitGroup.getElementById('commit-item');
+                    const ItemDom = docItemGroup.getElementById('commit-item');
 
-                    for (let commitItem of value) {
+                    for (let invItem of value) {
 
-                        let docCommitItem = parser.parseFromString(htmlItem, "text/html");
+                        let docInvItem = parser.parseFromString(htmlItem, "text/html");
 
-                        docCommitItem.getElementById('commit-li').setAttribute('item-id', commitItem.codigo);
-                        docCommitItem.getElementById('nome-commit').textContent = commitItem.funcionario.nome;
-                        docCommitItem.getElementById('periodo-commit').textContent = commitItem.intervaloCommit;
-                        docCommitItem.getElementById('modelo-item').textContent = commitItem.modelo;
-                        docCommitItem.getElementById('ano-item').textContent = commitItem.anoFabricacao;
-                        docCommitItem.getElementById('data-item').textContent = commitItem.data;
-                        docCommitItem.getElementById('fabricante-item').textContent = commitItem.fabricante;
-                        docCommitItem.getElementById('matricula-funcionario').textContent = commitItem.funcionario.codigo;
+                        docInvItem.getElementById('commit-li').setAttribute('item-id', invItem.codigo);
+                        docInvItem.getElementById('nome-funcionario').textContent = invItem.funcionario.nome;
+                        docInvItem.getElementById('periodo-item').textContent = invItem.intervaloCommit;
+                        docInvItem.getElementById('modelo-item').textContent = invItem.modelo;
+                        docInvItem.getElementById('ano-item').textContent = invItem.anoFabricacao;
+                        docInvItem.getElementById('data-item').textContent = invItem.data;
+                        docInvItem.getElementById('fabricante-item').textContent = invItem.fabricante;
+                        docInvItem.getElementById('matricula-funcionario').textContent = invItem.funcionario.codigo;
 
-                        commitItemDom.appendChild(docCommitItem.body);
+                        ItemDom.appendChild(docInvItem.body);
                     }
 
-                    timeline.appendChild(docCommitGroup.body);
+                    timeline.appendChild(docItemGroup.body);
                 }
             }
         });
@@ -66,13 +66,13 @@ async function removeItem(removeButton)
     if (confirm('Deseja deletar o Item?')) {
         let itemId = removeButton.closest('.inventario').getAttribute('item-id');
 
-        let commit = new Item();
+        let item = new Item();
 
-        await deleteData(itemsEndpoint, commit);
+        await deleteData(itemsEndpoint, item);
     } else {
         console.log('Deletar item cancelado!');
     }
 }
 
-window.addEventListener("load", carregarCommits);
+window.addEventListener("load", carregarItens);
 

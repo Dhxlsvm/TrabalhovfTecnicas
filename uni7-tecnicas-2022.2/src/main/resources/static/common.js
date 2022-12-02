@@ -69,20 +69,12 @@ function putData(){
 
 }
 
-async function deleteData(url = '', data = {}, callback) {
-    await fetch(url, {
-        method: 'DELETE',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: JSON.stringify(data)
-    });
+function deleteData() {
+    let xhr = new XMLHttpRequest();
 
-    if(callback)
-        callback();
+    xhr.open("DELETE", "api/commits")
+    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
+    xhr.send(null);
+
 }
